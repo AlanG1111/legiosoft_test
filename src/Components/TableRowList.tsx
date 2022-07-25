@@ -11,7 +11,7 @@ function TableRowList({ tableRowArray }: tableRowProps) {
       {(tableRowArray.slice(currentPage * 12 - 12, currentPage * 12) || []).map(
         (el: string) => {
           if (el.split(",")[0] === "TransactionId") {
-            return;
+            return null;
           }
           return (
             <>

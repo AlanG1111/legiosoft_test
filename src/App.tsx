@@ -1,24 +1,26 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Container, Navbar, Table } from "react-bootstrap";
+import ButtonsGroup from "./Components/ButtonsGroup";
+import Filters from "./Components/Filters";
+import PaginationWrapper from "./Components/PaginationComponent";
+import TableRowList from "./Components/TableRowList";
+import { useAppSelector } from "./redux/hooks";
 
 function App() {
+  const dataArray = useAppSelector((state) => state.data.data);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='App'>
+      <Navbar bg='dark' variant='dark'>
+        <Container>
+          <Filters />
+          <ButtonsGroup />
+        </Container>
+      </Navbar>
+      <Container>
+        <Table striped bordered hover>
+          <TableRowList tableRowArray={dataArray} />
+        </Table>
+        <PaginationWrapper />
+      </Container>
     </div>
   );
 }

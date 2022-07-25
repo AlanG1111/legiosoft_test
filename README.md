@@ -15,7 +15,7 @@ You will also see any lint errors in the console.
 
 ### Technologies
 
-React, Redux-saga, React-bootstrap, Redux-toolkit, TypeScript, RestAPI, axios, mock-api
+React, Redux-saga, React-bootstrap, Redux-toolkit, TypeScript,  axios, mock-api
 
 ## Link
 

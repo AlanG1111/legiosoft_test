@@ -2,24 +2,24 @@ import { createSlice, current } from "@reduxjs/toolkit";
 
 interface CounterState {
   data: Array<any>;
-  staticValue: Array<any>;
   filterLabels: {
     types: Array<string>;
     status: Array<string>;
   };
   currentPage: number;
   input: string;
+  file: any;
 }
 
 const initialState: CounterState = {
   data: [],
-  staticValue: [],
   filterLabels: {
     types: [],
     status: [],
   },
   currentPage: 1,
   input: "",
+  file: null,
 };
 
 export const counterSlice = createSlice({
@@ -27,7 +27,6 @@ export const counterSlice = createSlice({
   initialState,
   reducers: {
     fetchCVSFile: (state, action) => {
-      console.log(state, action);
       const statusFilterLabels: Array<string> = [];
       const typeFilterLabel: Array<string> = [];
       action.payload.users.forEach((item: string, i: number) => {
@@ -46,7 +45,6 @@ export const counterSlice = createSlice({
         types: typeFilterLabel,
         status: statusFilterLabels,
       };
-      state.staticValue = action.payload.users;
       state.data = action.payload.users;
     },
     getData: () => {
@@ -54,7 +52,7 @@ export const counterSlice = createSlice({
     },
     deleteItem: (state, action) => {
       const currentList = current(state).data;
-      // eslint-disable-next-line array-callback-return
+      // eslint-disable-next-line
       const filteredList = currentList.filter((item: string) => {
         const ID = item.split(",")[0];
         if (ID !== action.payload) {
@@ -76,8 +74,8 @@ export const counterSlice = createSlice({
       });
     },
     filterByTypeAndStatus: (state, action) => {
-      const currentList = current(state).staticValue;
-      // eslint-disable-next-line array-callback-return
+      const currentList = current(state).data;
+      // eslint-disable-next-line
       const filteredList = currentList.filter((item: string) => {
         const status = item.split(",")[1];
         const type = item.split(",")[2];
@@ -92,9 +90,10 @@ export const counterSlice = createSlice({
       state.data = filteredList;
       state.currentPage = 1;
     },
-    setDataFromFile: (state, action) => {
-      state.data = action.payload;
-      state.staticValue = action.payload;
+    getFile: (state, action) => {
+      // eslint-disable-next-line
+      console.log("File", action.payload);
+      state.file = action.payload;
     },
     setPageNumber: (state, action) => {
       state.currentPage = action.payload;
@@ -107,7 +106,7 @@ export const counterSlice = createSlice({
 
 export const {
   setPageNumber,
-  setDataFromFile,
+  getFile,
   filterByTypeAndStatus,
   getData,
   fetchCVSFile,
